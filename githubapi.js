@@ -6,15 +6,20 @@ const showRepoResult = document.querySelector(".showRepoData");
 // Functionality for User data results
 btnUser.addEventListener("click", async () => {
   const inputValue = document.querySelector("input").value;
-//   showUserResult.innerHTML = `Loading data for ${inputValue} ...`;
-  //   console.log(inputValue);
-  try {
-    let res = await fetch(`https://api.github.com/users/${inputValue}`);
-    let userData = await res.json();
-    // console.log(userData);
-    displayUserData(userData);
-  } catch (error) {
-    showUserResult.innerHTML = `Error in Loading the data...`;
+  if (inputValue === "") {
+    alert("Please Enter User Name !!!");
+  } else {
+    const userUrl = `https://api.github.com/users/${inputValue}`;
+    //   showUserResult.innerHTML = `Loading data for ${inputValue} ...`;
+    //   console.log(inputValue);
+    try {
+      let res = await fetch(userUrl);
+      let userData = await res.json();
+      // console.log(userData);
+      displayUserData(userData);
+    } catch (error) {
+      showUserResult.innerHTML = `Error in Loading the data...`;
+    }
   }
 });
 
@@ -50,20 +55,25 @@ const displayUserData = (userData) => {
 // Functionality for Repo results
 btnRepo.addEventListener("click", async () => {
   const inputValue = document.querySelector("input").value;
-//   showUserResult.innerHTML = `Loading Repo for ${inputValue} ...`;
-  try {
-    let res = await fetch(`https://api.github.com/users/${inputValue}/repos`);
-    let userData = await res.json();
-    displayRepoData(userData);
-  } catch (error) {
-    showUserResult.innerHTML = `Error in loading repositories...`;
+  if (inputValue === "") {
+    alert("Please Enter User Name !!!");
+  } else {
+    const url = `https://api.github.com/users/${inputValue}/repos?per_page=100`;
+    //   showRepoResult.innerHTML = `Loading Repo for ${inputValue} ...`;
+    try {
+      let res = await fetch(url);
+      let userData = await res.json();
+      displayRepoData(userData);
+    } catch (error) {
+      showRepoResult.innerHTML = `Error in loading repositories...`;
+    }
   }
 });
 
 const displayRepoData = (userData) => {
   userData.map((item, id) => {
     // console.log(item, id);
-    showUserResult.innerHTML += `
+    showRepoResult.innerHTML += `
  <div class="col-sm-12 col-md-6 col-lg-4 mb-3 mb-sm-3 ">
             <div class="card h-100 bg-dark text-white text-center">
             <div class = "card-header">
