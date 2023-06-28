@@ -24,6 +24,7 @@ btnUser.addEventListener("click", async () => {
 });
 
 const displayUserData = (userData) => {
+  showUserResult.innerHTML = "";
   const userImg = userData.avatar_url;
   //   console.log(img);
   const userName = userData.name;
@@ -71,6 +72,7 @@ btnRepo.addEventListener("click", async () => {
 });
 
 const displayRepoData = (userData) => {
+  showRepoResult.innerHTML = "";
   userData.map((item, id) => {
     // console.log(item, id);
     showRepoResult.innerHTML += `
